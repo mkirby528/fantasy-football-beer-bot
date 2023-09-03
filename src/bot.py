@@ -1,10 +1,9 @@
 # bot.py
 import os
-
 import discord
 from dotenv import load_dotenv
 from src.espn import get_zero_point_teams
-from src.name_to_discord_map import get_discord_name
+from src.discord_ids import get_discord_name
 
 if os.getenv("DISCORD_GUILD") is None:
     load_dotenv()
