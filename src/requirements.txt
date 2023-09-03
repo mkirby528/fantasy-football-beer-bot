@@ -1,4 +1,4 @@
 espn_api
-discord
+discord.py
 boto3
 python-dotenv
