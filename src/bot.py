@@ -4,6 +4,7 @@ import discord
 from dotenv import load_dotenv
 from src.espn import get_zero_point_teams
 from src.discord_ids import get_discord_name
+from src.nfl_weeks import get_current_week
 
 if os.getenv("DISCORD_GUILD") is None:
     load_dotenv()
@@ -24,15 +25,17 @@ def send_message(event, context):
         channel = client.get_channel(CHANNEL)
 
         print("About to send")
-        week = 1
+        week = get_current_week()
+        print(week)
+        return 
         teams = get_zero_point_teams(week)
         output_string = f"Week {week} team owners with players who scored zero or below points:"
         for team in teams:
             output_string += "\n\t"
             players_string = ",".join(teams[team])
-            output_string += f"{get_discord_name(team.owner)}: {players_string}"
+            output_string += f"{team.team_name} ({get_discord_name(team.owner)}): {players_string}"
         print(output_string)
-        await channel.send(output_string)
+        # await channel.send(output_string)
 
         print("Sent")
         await client.close()
