@@ -32,7 +32,7 @@ def send_message(event, context):
             players_string = ",".join(teams[team])
             output_string += f"{get_discord_name(team.owner)}: {players_string}"
         print(output_string)
-        # await channel.send(output_string)
+        await channel.send(output_string)
 
         print("Sent")
         await client.close()
