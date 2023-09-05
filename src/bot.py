@@ -26,8 +26,6 @@ def send_message(event, context):
 
         print("About to send")
         week = get_current_week()
-        print(week)
-        return 
         teams = get_zero_point_teams(week)
         output_string = f"Week {week} team owners with players who scored zero or below points:"
         for team in teams:
@@ -35,7 +33,7 @@ def send_message(event, context):
             players_string = ",".join(teams[team])
             output_string += f"{team.team_name} ({get_discord_name(team.owner)}): {players_string}"
         print(output_string)
-        # await channel.send(output_string)
+        await channel.send(output_string)
 
         print("Sent")
         await client.close()

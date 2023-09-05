@@ -18,6 +18,7 @@ tuesdays_in_seasons = [
     "2023-12-19",
     "2023-12-26",
     "2023-01-02",
+    
 ]
 
 def get_current_week():
