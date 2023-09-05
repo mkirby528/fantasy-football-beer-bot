@@ -1,4 +1,4 @@
-from package.espn_api.football import League
+from espn_api.football import League
 import os
 league: League = League(league_id=1181055176, year=2023,
                         espn_s2=os.getenv("ESPN_S2"),swid=os.getenv("ESPN_SWID"))
