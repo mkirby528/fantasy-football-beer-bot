@@ -32,6 +32,8 @@ def send_message(event, context):
             output_string += "\n\t"
             players_string = ",".join(teams[team])
             output_string += f"{team.team_name} ({get_discord_name(team.owner)}): {players_string}"
+        output_string += "\n"
+        output_string += "Per the league charter you have one week to post video evidence of you shotgunning a beer."
         print(output_string)
         await channel.send(output_string)
 
