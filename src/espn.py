@@ -8,6 +8,8 @@ def get_zero_point_teams(week_number):
     matchups = league.box_scores(week_number)
     zero_point_teams_dict = {}
     for matchup in matchups:
+        if matchup.home_team == 0 or matchup.away_team == 0:
+            continue
         home_team_zeroes = get_zero_point_players(matchup.home_lineup)
         away_team_zeroes = get_zero_point_players(matchup.away_lineup)
         if len(home_team_zeroes) != 0:
