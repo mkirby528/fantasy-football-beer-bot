@@ -5,7 +5,8 @@ from dotenv import load_dotenv
 from src.espn import get_zero_point_teams
 from src.discord_ids import get_discord_name
 from src.nfl_weeks import get_current_week
-
+from src.dynanmo import write_to_dynamo, update_with_fulfilled, get_unfulfilled_users_for_week
+from datetime import datetime, timedelta
 
 if getenv("DISCORD_GUILD") is None:
     load_dotenv()
@@ -13,6 +14,7 @@ if getenv("DISCORD_GUILD") is None:
 TOKEN = getenv('DISCORD_TOKEN')
 GUILD = getenv('DISCORD_GUILD')
 CHANNEL = int(getenv('CHANNEL_ID'))
+
 
 def send_message(event, context):
     client = discord.Client(intents=discord.Intents.default())
@@ -25,22 +27,57 @@ def send_message(event, context):
 
         channel = client.get_channel(CHANNEL)
 
-        print("About to send")
-        week = get_current_week()
-        teams = get_zero_point_teams(week)
-        output_string = f"Week {week} team owners with players who scored zero or below points:"
-        for team in teams:
-            owner_name = team.owners[0].get("firstName") + " " + team.owners[0].get("lastName")
-            print(owner_name)
-            output_string += "\n\t"
-            players_string = ",".join(teams[team])
-            output_string += f"{team.team_name} ({get_discord_name(owner_name)}): {players_string}"
-        output_string += "\n"
-        output_string += "Per the league charter you have one week to post video evidence of you shotgunning a beer otherwise you will recieve a 10 point penalty for next week's matchup."
-        print(output_string)
-        await channel.send(output_string)
+        print("Discord Client initalized...")
+        week_number = 17 or get_current_week()
 
-        print("Sent")
+        output_string = get_past_week_zeroes_output(week_number)
+        print("Output string: " + output_string)
+
+        await channel.send(output_string)
+        print("Sent message...")
+
+        users_who_posted_videos = await get_users_who_posted_videos(channel, week_number-1)
+        unfulfilled_users = get_unfulfilled_users_for_week(week_number - 1)
+        await channel.send(f"Users who have not posted a video for week {week_number - 1}: {str(unfulfilled_users)}")
+
         await client.close()
         return 1
     client.run(TOKEN)
+
+
+def get_past_week_zeroes_output(week) -> str:
+    teams = get_zero_point_teams(week)
+    output_string = f"Week {
+        week} team owners with players who scored zero or below points:"
+    for team in teams:
+        owner_name = team.owners[0].get(
+            "firstName") + " " + team.owners[0].get("lastName")
+        discord_id = get_discord_name(owner_name)
+        output_string += "\n\t"
+        players_string = ",".join(teams[team])
+        output_string += f"{team.team_name} ({discord_id}): {
+            players_string}"
+        write_to_dynamo({
+            "week_number": week,
+            "user_id": discord_id,
+            "owner": owner_name,
+            "players": teams[team],
+            "fulfilled": False
+        }
+        )
+    output_string += "\n"
+    output_string += "Per the league charter you have one week to post video evidence of you shotgunning a beer otherwise you will recieve a 10 point penalty for next week's matchup."
+    return output_string
+
+
+async def get_users_who_posted_videos(channel, week_number) -> list[str]:
+    print(f"Searching for user mentions for week {week_number}...")
+
+    messages = [msg async for msg in channel.history(limit=100, after=datetime.now() - timedelta(days=7))]
+    for message in messages:
+
+        for attachement in message.attachments:
+            attachment_type, attachment_format = attachement.content_type.split(
+                '/')
+            if attachment_type == "video":
+                update_with_fulfilled(week_number, f"<@{message.author.id}>")
