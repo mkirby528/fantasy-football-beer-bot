@@ -1,7 +1,7 @@
 from espn_api.football import League
-import os
+from os import getenv
 league: League = League(league_id=1181055176, year=2023,
-                        espn_s2=os.getenv("ESPN_S2"),swid=os.getenv("ESPN_SWID"))
+                        espn_s2=getenv("ESPN_S2"),swid=getenv("ESPN_SWID"))
 
 
 def get_zero_point_teams(week_number):
