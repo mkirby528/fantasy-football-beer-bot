@@ -1,6 +1,6 @@
 from espn_api.football import League
 from os import getenv
-league: League = League(league_id=1181055176, year=2023,
+league: League = League(league_id=1181055176, year=2024,
                         espn_s2=getenv("ESPN_S2"),swid=getenv("ESPN_SWID"))
 
 
