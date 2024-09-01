@@ -18,7 +18,7 @@ def update_with_fulfilled(week_number, user_id):
         },
         UpdateExpression="set fulfilled = :value",
         ExpressionAttributeValues={
-            ':value': 'true',
+            ':value': True,
         },
     )
 

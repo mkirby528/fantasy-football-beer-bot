@@ -10,7 +10,8 @@ discord_ids = {
     "WILLIAM BLAKE": "595475431428325376",
     "Max Hubbauer": "997565080537407599",
     "Ev O'Connor": "1003983986915299339",
-    "Ronnie Castellano": "888259040310857808"
+    "Ronnie Castellano": "888259040310857808",
+    "Paul Morgan": "536198104932679681"
 }
 
 
