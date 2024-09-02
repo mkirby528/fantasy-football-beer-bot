@@ -52,13 +52,11 @@ def get_past_week_zeroes_output(week) -> str:
     output_string = f"Week {
         week} team owners with players who scored zero or below points:"
     for team in teams:
-        owner_name = team.owners[0].get(
-            "firstName") + " " + team.owners[0].get("lastName")
+        owner_name = team.owners[0].get("firstName") + " " + team.owners[0].get("lastName")
         discord_id = get_discord_name(owner_name)
         output_string += "\n\t"
         players_string = ",".join(teams[team])
-        output_string += f"{team.team_name} ({discord_id}): {
-            players_string}"
+        output_string += f"{team.team_name} ({discord_id}): {players_string}"
         write_to_dynamo({
             "week_number": week,
             "user_id": discord_id,
@@ -78,10 +76,9 @@ async def get_users_who_posted_videos(channel, week_number) -> list[str]:
     messages = [msg async for msg in channel.history(limit=250, after=datetime.now() - timedelta(days=7)) if not msg.author.bot]
     for message in messages:
         for attachement in message.attachments:
-            print("attachment",attachement)
+            print("attachment", attachement)
             attachment_type, attachment_format = attachement.content_type.split(
                 '/')
             if attachment_type == "video":
                 update_with_fulfilled(week_number, f"<@{message.author.id}>")
                 break
-    
