@@ -27,4 +27,4 @@ def get_unfulfilled_users_for_week(week_number):
     items = table.query(KeyConditionExpression=Key('week_number').eq(
         week_number), FilterExpression=Attr('fulfilled').eq(False)).get("Items",[])
     print([item for item in items])
-    return [f"{item.get("user_id")}" for item in items]
+    return [f"{item.get('user_id')}" for item in items]
