@@ -49,8 +49,7 @@ def send_message(event, context):
 
 def get_past_week_zeroes_output(week) -> str:
     teams = get_zero_point_teams(week)
-    output_string = f"Week {
-        week} team owners with players who scored zero or below points:"
+    output_string = f"Week {week} team owners with players who scored zero or below points:"
     for team in teams:
         owner_name = team.owners[0].get("firstName") + " " + team.owners[0].get("lastName")
         discord_id = get_discord_name(owner_name)
@@ -63,10 +62,15 @@ def get_past_week_zeroes_output(week) -> str:
             "owner": owner_name,
             "players": teams[team],
             "fulfilled": False
-        }
-        )
+        })
     output_string += "\n"
-    output_string += "Per the league charter you have one week to post video evidence of you shotgunning a beer otherwise you will recieve a 10 point penalty for next week's matchup. When posting your video please tag the bot (@BeerBot) and post the week number (ie \"Week 1\" or \"week 1\") in the same post as your video so that the bot can know what week you are fulfulling."
+    output_string += (
+        "Per the league charter you have one week to post video evidence of you "
+        "shotgunning a beer otherwise you will receive a 10 point penalty for next week's matchup. "
+        "When posting your video please tag the bot (@BeerBot) and post the week number "
+        "(ie \"Week 1\" or \"week 1\") in the same post as your video so that the bot can know "
+        "what week you are fulfilling."
+    )
     return output_string
 
 
