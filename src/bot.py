@@ -39,7 +39,7 @@ def send_message(event, context):
         elif event_type == "video_check":
             await get_users_who_posted_videos(channel, week_number-1)
             unfulfilled_users = get_unfulfilled_users_for_week(week_number - 1)
-            await channel.send(f"Users who have not posted a video for week {week_number - 1}: {str(unfulfilled_users)}. If believe this to be an error please message Matthew Kirby and he will fix it.")
+            await channel.send(f"Users who have not posted a video for week {week_number - 1}: {str(unfulfilled_users)}. If you do not post a video before the tuesday of the following week, you will get a 10 point penalty. If believe this to be an error please message Matthew Kirby and he will fix it.")
 
         await client.close()
         return 1
@@ -49,9 +49,11 @@ def send_message(event, context):
 
 def get_past_week_zeroes_output(week) -> str:
     teams = get_zero_point_teams(week)
-    output_string = f"Week {week} team owners with players who scored zero or below points:"
+    output_string = f"Week {
+        week} team owners with players who scored zero or below points:"
     for team in teams:
-        owner_name = team.owners[0].get("firstName") + " " + team.owners[0].get("lastName")
+        owner_name = team.owners[0].get(
+            "firstName") + " " + team.owners[0].get("lastName")
         discord_id = get_discord_name(owner_name)
         output_string += "\n\t"
         players_string = ",".join(teams[team])
@@ -67,9 +69,7 @@ def get_past_week_zeroes_output(week) -> str:
     output_string += (
         "Per the league charter you have one week to post video evidence of you "
         "shotgunning a beer otherwise you will receive a 10 point penalty for next week's matchup. "
-        "When posting your video please tag the bot (@BeerBot) and post the week number "
-        "(ie \"Week 1\" or \"week 1\") in the same post as your video so that the bot can know "
-        "what week you are fulfilling."
+        "When posting your video please tag the bot (@BeerBot) in the same post as your video so that the bot can mark you as fulfilled. "
     )
     return output_string
 
