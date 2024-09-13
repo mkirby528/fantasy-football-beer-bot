@@ -49,8 +49,7 @@ def send_message(event, context):
 
 def get_past_week_zeroes_output(week) -> str:
     teams = get_zero_point_teams(week)
-    output_string = f"Week {
-        week} team owners with players who scored zero or below points:"
+    output_string = f"Week {week} team owners with players who scored zero or below points:"
     for team in teams:
         owner_name = team.owners[0].get(
             "firstName") + " " + team.owners[0].get("lastName")
