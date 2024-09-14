@@ -39,7 +39,8 @@ def send_message(event, context):
         elif event_type == "video_check":
             await get_users_who_posted_videos(channel, week_number-1)
             unfulfilled_users = get_unfulfilled_users_for_week(week_number - 1)
-            await channel.send(f"Users who have not posted a video for week {week_number - 1}: {str(unfulfilled_users)}. If you do not post a video before the tuesday of the following week, you will get a 10 point penalty. If believe this to be an error please message Matthew Kirby and he will fix it.")
+            if unfulfilled_users:
+                await channel.send(f"Users who have not posted a video for week {week_number - 1}: {str(unfulfilled_users)}. If you do not post a video before the tuesday of the following week, you will get a 10 point penalty. If believe this to be an error please message Matthew Kirby and he will fix it.")
 
         await client.close()
         return 1
