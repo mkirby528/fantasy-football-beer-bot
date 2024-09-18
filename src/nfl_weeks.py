@@ -7,7 +7,7 @@ tuesdays_in_season = [tuesday_after_week_1 + timedelta(days=7*i) for i in range(
 def get_current_week(date:str=None):
     week_one = tuesday_after_week_1
     #get date in local time
-    today  = datetime.now() - timedelta(hours=4) 
+    today  = datetime.now() - timedelta(hours=4) + timedelta(days=4)
     print(today)
     if today < week_one:
         today = week_one
