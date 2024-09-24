@@ -33,7 +33,7 @@ def send_message(event, context):
             output_string = get_past_week_zeroes_output(week_number)
             print("Output string: " + output_string)
 
-            await channel.send(output_string)
+            # await channel.send(output_string)
             print("Sent message...")
 
         elif event_type == "video_check":
