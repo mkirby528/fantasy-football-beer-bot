@@ -55,6 +55,7 @@ def get_past_week_zeroes_output(week) -> str:
     for team in teams:
         owner_name = team.owners[0].get(
             "firstName") + " " + team.owners[0].get("lastName")
+        print(owner_name)
         discord_id = get_discord_name(owner_name)
         output_string += "\n\t"
         players_string = ",".join(teams[team])

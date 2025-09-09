@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 
 date_format = '%Y-%m-%d'
-tuesday_after_week_1 = datetime(2024, 9, 10)
+tuesday_after_week_1 = datetime(2025, 9, 9)
 tuesdays_in_season = [tuesday_after_week_1 + timedelta(days=7*i) for i in range(17)]
 
 def get_current_week(date:str=None):
