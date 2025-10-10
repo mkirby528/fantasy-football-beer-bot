@@ -78,8 +78,7 @@ def get_past_week_zeroes_output(week) -> str:
 
 async def get_users_who_posted_videos(channel, week_number) -> list[str]:
     print(f"Searching for user mentions for week {week_number}...")
-
-    messages = [msg async for msg in channel.history(limit=250, after=tuesdays_in_season[week_number-1]) if not msg.author.bot]
+    messages = [msg async for msg in channel.history(limit=250, after=tuesdays_in_season[week_number-1] + timedelta(hours=4)) if not msg.author.bot] 
     for message in messages:
         for attachement in message.attachments:
             print("attachment", attachement)
