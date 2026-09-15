@@ -1,4 +1,4 @@
-espn_api>=0.31.0
+espn_api>=0.46.0
 discord.py
 boto3
 python-dotenv

@@ -2,7 +2,7 @@ import boto3
 from boto3.dynamodb.conditions import Key, Attr
 
 TABLE_NAME = "beer-bot-sor"
-table = boto3.resource('dynamodb').Table(TABLE_NAME)
+table = boto3.resource('dynamodb',region_name="us-east-1").Table(TABLE_NAME)
 
 
 def write_to_dynamo(item: dict):

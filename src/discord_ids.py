@@ -12,9 +12,10 @@ discord_ids = {
     "Ev O'Connor": "1003983986915299339",
     "Ronnie Castellano": "888259040310857808",
     "Paul Morgan": "536198104932679681",
-    "Jesse Berry": "1406261693574545448",
     "Jake Saito": "414577871189966849",
-    "Zain Zahoor":"918286845924737054"
+    "Zain Zahoor":"918286845924737054",
+    "Charlie Kirby":"1054963061506719774",
+    "Aaron Peterson": "284909222133628938"
 }
 
 
