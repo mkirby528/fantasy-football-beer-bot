@@ -14,7 +14,7 @@ discord_ids = {
     "Paul Morgan": "536198104932679681",
     "Jake Saito": "414577871189966849",
     "Zain Zahoor":"918286845924737054",
-    "Charlie Kirby":"1054963061506719774",
+    "Charlie  Kirby":"1054963061506719774",
     "Aaron Peterson": "284909222133628938"
 }
 
